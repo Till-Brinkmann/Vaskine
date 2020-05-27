@@ -1,0 +1,71 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.33.0.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: 389ed27f7fe290a9317d63e2fd2d3167225721c5c9e5f25c0b62b3bd602a0468
+
+name:           HaskellInterfacing
+version:        0.1.0.0
+description:    Please see the README on GitHub at <https://github.com/githubuser/HaskellInterfacing#readme>
+homepage:       https://github.com/githubuser/HaskellInterfacing#readme
+bug-reports:    https://github.com/githubuser/HaskellInterfacing/issues
+author:         Author name here
+maintainer:     example@example.com
+copyright:      2020 Author name here
+license:        BSD3
+license-file:   LICENSE
+build-type:     Simple
+extra-source-files:
+    README.md
+    ChangeLog.md
+
+source-repository head
+  type: git
+  location: https://github.com/githubuser/HaskellInterfacing
+
+library
+  exposed-modules:
+      HaskellInterface
+  other-modules:
+      Paths_HaskellInterfacing
+  hs-source-dirs:
+      src
+--  Include-dirs:
+--      include
+  extra-lib-dirs:
+--        P:\Vaskine\HaskellInterfacing\build
+      build
+  extra-libraries:
+      HaskellInterface
+      stdc++
+  build-depends:
+      base >=4.7 && <5
+  ghc-options: -Wall
+  default-language: Haskell2010
+
+executable HaskellInterfacing-exe
+  main-is: Main.hs
+  other-modules:
+      Paths_HaskellInterfacing
+  hs-source-dirs:
+      app
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      HaskellInterfacing
+    , base >=4.7 && <5
+  default-language: Haskell2010
+
+test-suite HaskellInterfacing-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      Paths_HaskellInterfacing
+  hs-source-dirs:
+      test
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      HaskellInterfacing
+    , base >=4.7 && <5
+  default-language: Haskell2010
