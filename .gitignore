@@ -1,2 +1,3 @@
 *
-!csrc/*
+!csrc/Vulkantest.cpp
+!csrc/Vulkantest.h
