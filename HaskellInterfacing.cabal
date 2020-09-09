@@ -32,11 +32,6 @@ library
       Paths_HaskellInterfacing
   hs-source-dirs:
       src
---  Include-dirs:
---      include
-  extra-lib-dirs:
---        P:\Vaskine\HaskellInterfacing\build
-      build
   extra-libraries:
       HaskellInterface
       stdc++

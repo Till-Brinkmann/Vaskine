@@ -1,5 +1,5 @@
 haskellinterfacing : lib
-	stack build --disable-executable-dynamic
+	stack build
 
 haskellinterfacing-install : lib
 	stack install
