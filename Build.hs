@@ -23,13 +23,22 @@ main = shakeArgs shakeOptions $ do
 
   phony "build" $ do
     need ["build_cpp"]
-    cmd "stack build" :: Action ()
-    need ["clean"]
+    cmd "stack build"
 
+{-
   "build" </> "lib*.a" %> \out -> do
     let withoutLib = replaceBaseName out . drop 3 . takeBaseName $ out
     need [withoutLib -<.> "o"]
     cmd $ "ar rcs " ++ out ++ " " ++ withoutLib -<.> "o"
+-}
+
+  phony "buildLib" $ do
+    putInfo "building lib"
+    dir <- liftIO getCurrentDirectory
+    buildFiles <- liftIO . listDirectory $ dir </> "build"
+    let oFiles = filter (isExtensionOf "o") buildFiles
+    cmd $ "ar rcs " ++ "build" </> "libHaskellInterfacing.a " ++ (unwords . (map ((</>) "build")) $ oFiles)
+
 
   "build" </> "*.o" %> \out -> do
     let fileInCSRC =  replaceDirectory out "csrc"
@@ -45,8 +54,9 @@ main = shakeArgs shakeOptions $ do
     dir <- liftIO getCurrentDirectory
     csrcFiles <- liftIO . listDirectory $ dir </> "csrc"
     let cppFiles = filter (isExtensionOf "cpp") csrcFiles
-        cppFilesA = map (overFileName $ (-<.> "a") . (++) "lib") cppFiles
-    need $ map (flip replaceDirectory "build") cppFilesA
+        cppFilesO = map (overFileName $ (-<.> "o")) cppFiles
+    _ <- need $ map (flip replaceDirectory "build") cppFilesO
+    need ["buildLib"]
 
 overFileName :: (String -> String) -> FilePath -> FilePath
 overFileName f p = replaceFileName p . f . takeFileName $ p
